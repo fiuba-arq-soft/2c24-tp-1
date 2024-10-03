@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+    node:
+        build: ./app
+        depends_on:
+            - redis
+        ports:
+            - "3000:3000"
+
+    redis:
+        image: redis:latest
+
     nginx:
         image: nginx:1.25.4
         ports:
