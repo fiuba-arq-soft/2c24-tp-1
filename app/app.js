@@ -1,60 +1,21 @@
-const express = require('express')
-const fetch = require('node-fetch');
+// const express = requires('express')
+// const baseRouter = requires('./cases/base.js')
+// const cacheRouter = requires('./cases/cache.js')
+// const replicationRouter = requires('./cases/replication.js')
+// const rateLimitingRouter = requires('express')
+import express from 'express'
+import baseRouter from './strategy/base.js'
+import cacheRouter from './strategy/cache.js'
+import replicationRouter from './strategy/replication.js'
+import rateLimitingRouter from './strategy/rate-limiting.js'
 const app = express()
 const port = 3000
 
-app.get('/ping', (req, res) => {
-  res.send('ping')
-})
 
-app.get('/dictionary', async (req, res) => {
-  const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + req.query.word;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    console.log(json);
-    res.send(json)
-  } catch (error) {
-    console.error(error.message);
-  }
-})
-
-app.get('/spaceflight_news', async (req, res) => {
-  const url = "https://api.spaceflightnewsapi.net/v4/articles/?limit=5";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    console.log(json);
-    res.send(json)
-  } catch (error) {
-    console.error(error.message);
-  }
-})
-
-app.get('/quote', async (req, res) => {
-  const url = "https://api.quotable.io/quotes/random";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    console.log(json);
-    res.send(json)
-  } catch (error) {
-    console.error(error.message);
-  }
-})
-
+app.use('/base', baseRouter)
+app.use('/cache', cacheRouter)
+app.use('/replication', replicationRouter)
+app.use('/rate-limiting', rateLimitingRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

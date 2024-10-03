@@ -1,0 +1,50 @@
+config:
+  environments:
+    base:
+      target: 'http://localhost:3000/base'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-api"
+    cache:
+      target: 'http://localhost:3000/cache'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-api"
+
+    replication:
+      target: 'http://localhost:3000/replication'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-api"
+    
+    rateLimiting: 
+      target: 'http://localhost:3000/rate-limiting'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-api"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Ramp
+      duration: 30
+      arrivalRate: 1
+      rampTo: 4
+    - name: Plain
+      duration: 60
+      arrivalRate: 4
+    
+
+scenarios:
+  - name: Ping
+    flow:
+      - get:
+          url: '/ping'
