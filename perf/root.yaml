@@ -1,7 +1,7 @@
 config:
   environments:
     api:
-      target: 'http://localhost:3000/base/ping'
+      target: 'http://localhost:5555'
       plugins:
         statsd:
           host: localhost

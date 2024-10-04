@@ -1,14 +1,14 @@
 config:
   environments:
     base:
-      target: 'http://localhost:3000/base'
+      target: 'http://localhost:5555/base'
       plugins:
         statsd:
           host: localhost
           port: 8125
           prefix: "artillery-api"
     cache:
-      target: 'http://localhost:3000/cache'
+      target: 'http://localhost:5555/cache'
       plugins:
         statsd:
           host: localhost
@@ -16,15 +16,15 @@ config:
           prefix: "artillery-api"
 
     replication:
-      target: 'http://localhost:3000/replication'
+      target: 'http://localhost:5555/replication'
       plugins:
         statsd:
           host: localhost
           port: 8125
           prefix: "artillery-api"
-    
-    rateLimiting: 
-      target: 'http://localhost:3000/rate-limiting'
+
+    rateLimiting:
+      target: 'http://localhost:5555/rate-limiting'
       plugins:
         statsd:
           host: localhost
@@ -41,7 +41,7 @@ config:
     - name: Plain
       duration: 60
       arrivalRate: 4
-    
+
 
 scenarios:
   - name: Ping

@@ -4,7 +4,9 @@
   },
   "dependencies": {
     "express": "^4.21.0",
-    "node-fetch": "^2.7.0"
+    "express-rate-limit": "^7.4.0",
+    "node-fetch": "^2.7.0",
+    "redis": "^4.7.0"
   },
   "type": "module"
 }
